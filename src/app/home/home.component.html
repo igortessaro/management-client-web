@@ -1,6 +1,115 @@
-<p>
-  home works!
-</p>
-<p>
-  {{name}}
-</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Custumer List - {{profile}}'s View</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="home_navbar">
+    <div class="navbar-nav mr-auto mt-2 mt-lg-0"></div>
+    <div class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-warning my-2 my-sm-0" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<br />
+
+<div class="container-fluid">
+  <div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Name">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputGender">Gender</label>
+        <select id="inputGender" class="form-control">
+          <option selected>(Select)</option>
+          <option>Masculine</option>
+          <option>Feminine</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputCity">City</label>
+        <select id="inputCity" class="form-control">
+          <option selected>(Select)</option>
+          <option>Porto Alegre</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputRegion">Region</label>
+        <select id="inputRegion" class="form-control">
+          <option selected>(Select)</option>
+          <option>Rio Grande Do Sul</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputLastPurchaseInit">Last Purchase</label>
+          <input type="date" class="form-control" id="inputLastPurchaseInit" placeholder="Name">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputLastPurchaseFinish">until</label>
+          <input type="date" class="form-control" id="inputLastPurchaseInit" placeholder="Name">
+        </div>
+      </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputClassification">Classification</label>
+          <select id="inputClassification" class="form-control">
+            <option selected>(Select)</option>
+            <option>VIP</option>
+            <option>Regular</option>
+            <option>Sporadic</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputRegion">Seller</label>
+          <select id="inputRegion" class="form-control">
+            <option selected>(Select)</option>
+            <option>Seller1</option>
+            <option>Seller2</option>
+          </select>
+        </div>
+      </div>
+
+    <button type="button" class="btn btn-primary">Search</button>
+    <button type="button" class="btn btn-primary">Clear Fields</button>
+  </div>
+
+  <hr>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Classification</th>
+        <th scope="col">Name</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Gender</th>
+        <th scope="col">City</th>
+        <th scope="col">Region</th>
+        <th scope="col">Last Purchase</th>
+        <th *ngIf="viewAdm" scope="col">Seller</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let custumer of customerList; index as i; trackBy: trackByFn">
+        <th>{{custumer.classification}}</th>
+        <td>{{custumer.name}}</td>
+        <td>{{custumer.phone}}</td>
+        <td>{{custumer.gender}}</td>
+        <th>{{custumer.city}}</th>
+        <td>{{custumer.region}}</td>
+        <td>{{custumer.lastPurchase}}</td>
+        <td *ngIf="viewAdm">{{custumer.seller}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

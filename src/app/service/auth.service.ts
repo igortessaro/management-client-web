@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Globals } from "../globals/globals";
+import { Notification } from "../model/notification.model";
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    constructor(private http: HttpClient) { }
 
-    baseUrl: string = 'https://localhost:44311/api/login';
+    constructor(
+        private http: HttpClient,
+        private server: Globals) { }
+
+    private baseUrl: string = this.server.serverBaseUrl + this.server.serverEndPointLogin;
 
     login(username: string, password: string) {
-        return this.http.post<any>(this.baseUrl, { email: username, password: password })
-            .pipe(map((response: any) => {
+        return this.http.post<Notification>(this.baseUrl, { email: username, password: password })
+            .pipe(map((response: Notification) => {
                 console.log(response);
 
                 if (response.success) {
-                    localStorage.setItem('currentUser', JSON.stringify({ username, password, name: response.payload.name }));
+                    localStorage.setItem('currentUser', JSON.stringify({ email: response.payload.email, name: response.payload.name, userType: response.payload.userType }));
                 }
             }));
     }

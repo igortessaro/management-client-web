@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   error = '';
   invalidLogin: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
