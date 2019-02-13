@@ -6,7 +6,11 @@
   </button>
 
   <div class="collapse navbar-collapse" id="home_navbar">
-    <div class="navbar-nav mr-auto mt-2 mt-lg-0"></div>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Hello {{currentUser.name}}</a>
+      </li>
+    </ul>
     <div class="form-inline my-2 my-lg-0">
       <button class="btn btn-outline-warning my-2 my-sm-0" (click)="logout()">Logout</button>
     </div>
@@ -16,18 +20,18 @@
 <br />
 
 <div class="container-fluid">
-  <div>
+  <form class="form-signin" [formGroup]="filterCustumerListForm" (ngSubmit)="onSubmit()">
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputName">Name</label>
-        <input type="text" class="form-control" id="inputName" placeholder="Name">
+        <input type="text" class="form-control" id="inputName" placeholder="Name" formControlName="name">
       </div>
       <div class="form-group col-md-6">
         <label for="inputGender">Gender</label>
-        <select id="inputGender" class="form-control">
-          <option selected>(Select)</option>
-          <option>Masculine</option>
-          <option>Feminine</option>
+        <select id="inputGender" class="form-control" formControlName="gender">
+          <option selected value="">(Select)</option>
+          <option *ngFor="let item of genderList; index as i; trackBy: trackByFn" value="{{item.key}}">{{item.value}}
+          </option>
         </select>
       </div>
     </div>
@@ -35,54 +39,62 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputCity">City</label>
-        <select id="inputCity" class="form-control">
-          <option selected>(Select)</option>
-          <option>Porto Alegre</option>
+        <select id="inputCity" class="form-control" formControlName="city">
+          <option selected value="">(Select)</option>
+          <option *ngFor="let item of cityList; index as i; trackBy: trackByFn" value="{{item.key}}">{{item.value}}
+          </option>
         </select>
       </div>
       <div class="form-group col-md-6">
         <label for="inputRegion">Region</label>
-        <select id="inputRegion" class="form-control">
-          <option selected>(Select)</option>
-          <option>Rio Grande Do Sul</option>
+        <select id="inputRegion" class="form-control" formControlName="region">
+          <option selected value="">(Select)</option>
+          <option *ngFor="let item of regionList; index as i; trackBy: trackByFn" value="{{item.key}}">{{item.value}}
+          </option>
         </select>
       </div>
     </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputLastPurchaseInit">Last Purchase</label>
-          <input type="date" class="form-control" id="inputLastPurchaseInit" placeholder="Name">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputLastPurchaseFinish">until</label>
-          <input type="date" class="form-control" id="inputLastPurchaseInit" placeholder="Name">
-        </div>
+      <div class="form-group col-md-6">
+        <label for="inputLastPurchaseInit">Last Purchase</label>
+        <input type="date" class="form-control" id="inputLastPurchaseInit" formControlName="lastPurchaseInit">
       </div>
+      <div class="form-group col-md-6">
+        <label for="inputLastPurchaseFinish">until</label>
+        <input type="date" class="form-control" id="inputLastPurchaseInit" formControlName="lastPurchaseFinish">
+      </div>
+    </div>
 
     <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputClassification">Classification</label>
-          <select id="inputClassification" class="form-control">
-            <option selected>(Select)</option>
-            <option>VIP</option>
-            <option>Regular</option>
-            <option>Sporadic</option>
-          </select>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputRegion">Seller</label>
-          <select id="inputRegion" class="form-control">
-            <option selected>(Select)</option>
-            <option>Seller1</option>
-            <option>Seller2</option>
-          </select>
-        </div>
+      <div class="form-group col-md-6">
+        <label for="inputClassification">Classification</label>
+        <select id="inputClassification" class="form-control" formControlName="classification">
+          <option selected value="">(Select)</option>
+          <option *ngFor="let item of classificationList; index as i; trackBy: trackByFn" value="{{item.key}}">
+            {{item.value}}</option>
+        </select>
       </div>
+      <div class="form-group col-md-6" *ngIf="viewAdm">
+        <label for="inputRegion">Seller</label>
+        <select id="inputRegion" class="form-control" formControlName="seller">
+          <option selected value="">(Select)</option>
+          <option *ngFor="let item of userList; index as i; trackBy: trackByFn" value="{{item.key}}">{{item.value}}
+          </option>
+        </select>
+      </div>
+    </div>
 
-    <button type="button" class="btn btn-primary">Search</button>
-    <button type="button" class="btn btn-primary">Clear Fields</button>
-  </div>
+    <div class="form-row">
+      <div class="form-group col-md-9"></div>
+      <div class="form-group col-md-1">
+        <button type="submit" class="btn btn-success">Search</button>
+      </div>
+      <div class="form-group col-md-2">
+        <button type="button" class="btn btn-info" (click)="formReset()">Clear Fields</button>
+      </div>
+    </div>
+  </form>
 
   <hr>
 

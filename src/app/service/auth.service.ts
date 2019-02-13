@@ -19,7 +19,7 @@ export class AuthenticationService {
                 console.log(response);
 
                 if (response.success) {
-                    localStorage.setItem('currentUser', JSON.stringify({ email: response.payload.email, name: response.payload.name, userType: response.payload.userType }));
+                    localStorage.setItem('currentUser', JSON.stringify({ id: response.payload.id, email: response.payload.email, name: response.payload.name, userType: response.payload.userType }));
                 }
             }));
     }

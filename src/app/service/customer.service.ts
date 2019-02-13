@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Globals } from "../globals/globals";
 import { Notification } from "../model/notification.model";
+import { CustomerFilter } from "../model/customerFilter.model";
 
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
@@ -10,8 +11,8 @@ export class CustomerService {
         private http: HttpClient,
         private server: Globals) { }
 
-    getAll() {
+    getAll(filter: CustomerFilter) {
         let baseUrl = this.server.serverBaseUrl + this.server.serverEndPointCustomer;
-        return this.http.get<Notification>(baseUrl);
+        return this.http.post<Notification>(baseUrl, filter);
     }
 }
